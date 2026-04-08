@@ -11,6 +11,7 @@
             --bg-secondary: #0f1015;
             --bg-card: #12141a;
             --bg-step: #0d0e12;
+            --bg-terminal: #1a1d24;
             --text-primary: #ffffff;
             --text-secondary: #8a8f98;
             --text-muted: #4a4f58;
@@ -24,14 +25,12 @@
             --accent-purple: #8b5cf6;
             --accent-pink: #ec4899;
             --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-orange: #f97316;
             --glow-cyan: rgba(34, 211, 238, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -42,14 +41,10 @@
             overflow-x: hidden;
         }
 
-        /* Background Grid Effect */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background-image: 
                 linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
@@ -58,431 +53,206 @@
             z-index: 0;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 24px 60px;
-            position: relative;
-            z-index: 1;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px 60px; position: relative; z-index: 1; }
 
-        /* Header with AI Agent */
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .agent-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            margin-bottom: 10px;
-        }
-
-        .side-badge {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-secondary);
-        }
-
+        .header { text-align: center; margin-bottom: 20px; }
+        .agent-section { display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 10px; }
+        .side-badge { background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 8px; font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); }
         .agent-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-cyan);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--accent-cyan);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             background: var(--bg-primary);
-            box-shadow: 
-                0 0 30px var(--glow-cyan),
-                0 0 60px rgba(34, 211, 238, 0.1),
-                inset 0 0 30px rgba(34, 211, 238, 0.05);
+            box-shadow: 0 0 30px var(--glow-cyan), 0 0 60px rgba(34, 211, 238, 0.1), inset 0 0 30px rgba(34, 211, 238, 0.05);
             animation: pulse-glow 3s ease-in-out infinite;
         }
-
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 30px var(--glow-cyan), 0 0 60px rgba(34, 211, 238, 0.1); }
             50% { box-shadow: 0 0 40px var(--glow-cyan), 0 0 80px rgba(34, 211, 238, 0.15); }
         }
+        .agent-icon { font-size: 36px; margin-bottom: 4px; }
+        .agent-label { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--accent-cyan); letter-spacing: 1px; }
 
-        .agent-icon {
-            font-size: 36px;
-            margin-bottom: 4px;
-        }
+        .connections { display: flex; justify-content: center; height: 60px; margin-bottom: 20px; position: relative; }
+        .connection-line { position: absolute; background: var(--border-color); }
+        .connection-vertical { width: 1px; height: 30px; top: 0; }
+        .connection-horizontal { height: 1px; top: 30px; }
+        .connection-down { width: 1px; height: 30px; top: 30px; }
+        .arrow-down { position: absolute; top: 55px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--border-light); }
 
-        .agent-label {
-            font-size: 11px;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
-        }
+        .title-section { text-align: center; margin-bottom: 30px; }
+        .title-section h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+        .title-section .subtitle { font-size: 13px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
 
-        /* Connection Lines */
-        .connections {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 60px;
-            margin-bottom: 20px;
-            position: relative;
-        }
+        .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 1100px) { .flow-grid { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; } }
 
-        .connection-line {
-            position: absolute;
-            background: var(--border-color);
-        }
-
-        .connection-vertical {
-            width: 1px;
-            height: 30px;
-            top: 0;
-        }
-
-        .connection-horizontal {
-            height: 1px;
-            top: 30px;
-        }
-
-        .connection-down {
-            width: 1px;
-            height: 30px;
-            top: 30px;
-        }
-
-        .arrow-down {
-            position: absolute;
-            top: 55px;
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 6px solid var(--border-light);
-        }
-
-        /* Title Section */
-        .title-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .title-section h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .title-section .subtitle {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Flow Grid - 3 Columns */
-        .flow-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 1100px) {
-            .flow-grid {
-                grid-template-columns: 1fr;
-                max-width: 600px;
-                margin: 0 auto;
-            }
-        }
-
-        /* Flow Card */
-        .flow-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            position: relative;
-        }
-
-        .flow-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 24px;
-        }
-
-        .flow-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
+        .flow-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; }
+        .flow-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; }
+        .flow-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
         .flow-icon.purple { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); }
         .flow-icon.teal { background: rgba(20, 184, 166, 0.15); color: var(--accent-teal); }
-        .flow-icon.coral { background: rgba(249, 115, 22, 0.15); color: #f97316; }
-
-        .flow-title-group {
-            flex: 1;
-        }
-
-        .flow-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
+        .flow-icon.coral { background: rgba(249, 115, 22, 0.15); color: var(--accent-orange); }
+        .flow-title-group { flex: 1; }
+        .flow-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
         .flow-title.purple { color: #c4b5fd; }
         .flow-title.teal { color: #5eead4; }
         .flow-title.coral { color: #fdba74; }
+        .flow-subtitle { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
 
-        .flow-subtitle {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Steps */
-        .steps-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .step-item {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-
-        .step-number {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            font-family: 'JetBrains Mono', monospace;
-            flex-shrink: 0;
-            color: white;
-        }
-
+        .steps-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+        .step-item { display: flex; gap: 14px; align-items: flex-start; }
+        .step-number { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; color: white; }
         .step-number.green { background: var(--accent-green); }
         .step-number.teal { background: var(--accent-teal); }
         .step-number.emerald { background: var(--accent-emerald); }
+        .step-content { flex: 1; }
+        .step-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+        .step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; }
+        .step-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
-        .step-content {
-            flex: 1;
-        }
+        .tag { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-family: 'JetBrains Mono', monospace; border: 1px solid; }
+        .tag.teal { background: rgba(20, 184, 166, 0.1); border-color: rgba(20, 184, 166, 0.3); color: var(--accent-teal); }
+        .tag.muted { background: transparent; border-color: var(--border-light); color: var(--text-secondary); }
+        .tag.green { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: var(--accent-green); }
+        .tag.amber { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3); color: var(--accent-amber); }
+        .tag.purple { background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3); color: var(--accent-purple); }
+        .tag.blue { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: var(--accent-blue); }
+        .tag.pink { background: rgba(236, 72, 153, 0.1); border-color: rgba(236, 72, 153, 0.3); color: var(--accent-pink); }
+        .tag.cyan { background: rgba(34, 211, 238, 0.1); border-color: rgba(34, 211, 238, 0.3); color: var(--accent-cyan); }
 
-        .step-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
+        .output-section { border-top: 1px solid var(--border-color); padding-top: 20px; }
+        .output-label { font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .step-desc {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        .step-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-family: 'JetBrains Mono', monospace;
-            border: 1px solid;
-        }
-
-        .tag.teal {
-            background: rgba(20, 184, 166, 0.1);
-            border-color: rgba(20, 184, 166, 0.3);
-            color: var(--accent-teal);
-        }
-
-        .tag.muted {
-            background: transparent;
-            border-color: var(--border-light);
-            color: var(--text-secondary);
-        }
-
-        .tag.green {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: rgba(16, 185, 129, 0.3);
-            color: var(--accent-green);
-        }
-
-        .tag.amber {
-            background: rgba(245, 158, 11, 0.1);
-            border-color: rgba(245, 158, 11, 0.3);
-            color: var(--accent-amber);
-        }
-
-        .tag.purple {
-            background: rgba(139, 92, 246, 0.1);
-            border-color: rgba(139, 92, 246, 0.3);
-            color: var(--accent-purple);
-        }
-
-        .tag.blue {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
-            color: var(--accent-blue);
-        }
-
-        .tag.pink {
-            background: rgba(236, 72, 153, 0.1);
-            border-color: rgba(236, 72, 153, 0.3);
-            color: var(--accent-pink);
-        }
-
-        .tag.cyan {
-            background: rgba(34, 211, 238, 0.1);
-            border-color: rgba(34, 211, 238, 0.3);
-            color: var(--accent-cyan);
-        }
-
-        /* Output Section */
-        .output-section {
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }
-
-        .output-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .output-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
+        /* Output Items - Clickable */
+        .output-list { display: flex; flex-direction: column; gap: 10px; }
         .output-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 14px;
             background: var(--bg-step);
             border-radius: 8px;
             border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-
-        .output-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .output-item:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(34, 211, 238, 0.05);
+            transform: translateX(4px);
         }
-
-        .output-name {
-            flex: 1;
-            font-size: 13px;
-            font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-primary);
-        }
-
-        .output-badge {
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
+        .output-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .output-name { flex: 1; font-size: 13px; font-weight: 500; font-family: 'JetBrains Mono', monospace; color: var(--text-primary); }
+        .output-badge { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-family: 'JetBrains Mono', monospace; }
         .output-badge.md { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
         .output-badge.json { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
-        .output-badge.xlsx { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .output-badge.xlsx { background: rgba(249, 115, 22, 0.15); color: var(--accent-orange); }
         .output-badge.auto { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); }
         .output-badge.ui { background: rgba(34, 211, 238, 0.15); color: var(--accent-cyan); }
         .output-badge.chart { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 48px;
-            padding: 24px;
-        }
-
-        .footer-badges {
-            display: flex;
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
             justify-content: center;
-            gap: 32px;
-            margin-bottom: 20px;
+            padding: 24px;
+            animation: fadeIn 0.2s ease;
+        }
+        .modal-overlay.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-content {
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .footer-badge {
-            text-align: center;
-        }
+        /* Terminal Window in Modal */
+        .terminal-preview { background: var(--bg-terminal); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
+        .terminal-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border-color); }
+        .terminal-dots { display: flex; gap: 8px; }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
+        .terminal-dot:hover { transform: scale(1.2); }
+        .terminal-dot.red { background: #ff5f57; }
+        .terminal-dot.yellow { background: #febc2e; }
+        .terminal-dot.green { background: #28c840; }
+        .terminal-title { font-size: 13px; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
+        .terminal-badge { padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .terminal-badge.live { background: var(--accent-green); color: white; }
+        .terminal-badge.chart { background: var(--accent-amber); color: white; }
+        .terminal-badge.xlsx { background: var(--accent-orange); color: white; }
+        .terminal-content { padding: 20px; max-height: 60vh; overflow-y: auto; }
+        .terminal-section-title { font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-bottom: 14px; }
 
-        .footer-badge-value {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+        /* Message Items */
+        .message-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+        .message-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .message-user { display: flex; align-items: center; gap: 10px; }
+        .avatar { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: white; }
+        .avatar.zalo { background: #0068ff; }
+        .avatar.telegram { background: #229ed9; }
+        .avatar.whatsapp { background: #25d366; }
+        .avatar.viber { background: #7360f2; }
+        .avatar.linkedin { background: #0a66c2; }
+        .message-name { font-size: 14px; font-weight: 500; }
+        .platform-badge { font-size: 11px; padding: 5px 12px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; background: var(--bg-step); color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .message-text { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; line-height: 1.5; }
+        .message-meta { display: flex; justify-content: flex-end; gap: 10px; font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+        .intent-tag { color: var(--accent-amber); }
+        .intent-tag.support { color: var(--accent-red); }
+        .intent-tag.recruitment { color: var(--accent-teal); }
 
-        .footer-badge-label {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
+        /* Channel Summary */
+        .channel-summary { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border-color); }
+        .channel-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--border-color); font-size: 13px; }
+        .channel-name { color: var(--text-secondary); }
+        .channel-count { color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-weight: 500; }
 
-        .footer-text {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
+        /* Chart */
+        .chart-bars { display: flex; align-items: flex-end; gap: 16px; height: 120px; padding: 20px 0; }
+        .chart-bar-wrapper { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .chart-bar { width: 100%; border-radius: 6px 6px 0 0; transition: height 0.5s ease; }
+        .chart-label { font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+        .chart-value { font-size: 13px; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-weight: 600; }
 
-        /* Responsive */
+        /* Candidates */
+        .candidate-item { display: flex; align-items: center; justify-content: space-between; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 10px; }
+        .candidate-info { display: flex; align-items: center; gap: 14px; }
+        .candidate-rank { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .candidate-rank.gold { background: var(--accent-amber); color: #000; }
+        .candidate-rank.silver { background: #94a3b8; color: #000; }
+        .candidate-rank.bronze { background: #cd7c32; color: #fff; }
+        .candidate-name { font-size: 14px; font-weight: 500; }
+        .candidate-role { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .match-score { font-size: 16px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .match-score.high { color: var(--accent-green); }
+        .match-score.medium { color: var(--accent-amber); }
+
+        /* Footer */
+        .footer { text-align: center; margin-top: 48px; padding: 24px; }
+        .footer-badges { display: flex; justify-content: center; gap: 32px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-badge { text-align: center; }
+        .footer-badge-value { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+        .footer-badge-label { font-size: 11px; color: var(--text-muted); }
+        .footer-text { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
         @media (max-width: 768px) {
-            .agent-section {
-                flex-direction: column;
-                gap: 16px;
-            }
-            
-            .side-badge {
-                order: 1;
-            }
-            
-            .agent-circle {
-                order: 0;
-            }
-
-            .connections {
-                display: none;
-            }
+            .agent-section { flex-direction: column; gap: 16px; }
+            .connections { display: none; }
+            .modal-content { max-width: 100%; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header with AI Agent -->
         <header class="header">
             <div class="agent-section">
                 <div class="side-badge">MCP Server</div>
@@ -494,32 +264,24 @@
             </div>
         </header>
 
-        <!-- Connection Lines -->
         <div class="connections">
-            <!-- Center vertical line -->
             <div class="connection-line connection-vertical" style="left: 50%;"></div>
-            <!-- Horizontal line -->
             <div class="connection-line connection-horizontal" style="left: 16.67%; width: 66.66%;"></div>
-            <!-- Left arrow -->
             <div class="connection-line connection-down" style="left: 16.67%;"></div>
             <div class="arrow-down" style="left: calc(16.67% - 5px);"></div>
-            <!-- Center arrow -->
             <div class="connection-line connection-down" style="left: 50%;"></div>
             <div class="arrow-down" style="left: calc(50% - 5px);"></div>
-            <!-- Right arrow -->
             <div class="connection-line connection-down" style="left: 83.33%;"></div>
             <div class="arrow-down" style="left: calc(83.33% - 5px);"></div>
         </div>
 
-        <!-- Title -->
         <div class="title-section">
             <h1>Unified Messaging & HR Assistant</h1>
             <p class="subtitle">// Multi-platform communication + CV screening powered by Claude AI</p>
         </div>
 
-        <!-- Flow Grid -->
         <div class="flow-grid">
-            <!-- Flow 1: Message Aggregation -->
+            <!-- Flow 1 -->
             <div class="flow-card">
                 <div class="flow-header">
                     <div class="flow-icon purple">💬</div>
@@ -528,71 +290,54 @@
                         <p class="flow-subtitle">flow_01 // unified inbox</p>
                     </div>
                 </div>
-
                 <div class="steps-list">
                     <div class="step-item">
                         <div class="step-number green">01</div>
                         <div class="step-content">
                             <h3 class="step-title">Connect Platforms</h3>
                             <p class="step-desc">Kết nối Zalo, Telegram, LinkedIn, WhatsApp qua OAuth & API</p>
-                            <div class="step-tags">
-                                <span class="tag teal">MCP:OAuth</span>
-                                <span class="tag muted">API Keys</span>
-                            </div>
+                            <div class="step-tags"><span class="tag teal">MCP:OAuth</span><span class="tag muted">API Keys</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number green">02</div>
                         <div class="step-content">
                             <h3 class="step-title">Sync Messages</h3>
                             <p class="step-desc">Real-time sync từ 4 platforms vào unified inbox</p>
-                            <div class="step-tags">
-                                <span class="tag teal">WebSocket</span>
-                                <span class="tag muted">Polling</span>
-                            </div>
+                            <div class="step-tags"><span class="tag teal">WebSocket</span><span class="tag muted">Polling</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number green">03</div>
                         <div class="step-content">
                             <h3 class="step-title">AI Categorize</h3>
                             <p class="step-desc">Phân loại: urgent, sales lead, support & priority sorting</p>
-                            <div class="step-tags">
-                                <span class="tag amber">Claude AI</span>
-                                <span class="tag muted">NLP</span>
-                            </div>
+                            <div class="step-tags"><span class="tag amber">Claude AI</span><span class="tag muted">NLP</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number green">04</div>
                         <div class="step-content">
                             <h3 class="step-title">Smart Reply</h3>
                             <p class="step-desc">Reply từ 1 cửa sổ, auto-route về đúng platform gốc</p>
-                            <div class="step-tags">
-                                <span class="tag green">Auto-route</span>
-                                <span class="tag muted">Templates</span>
-                            </div>
+                            <div class="step-tags"><span class="tag green">Auto-route</span><span class="tag muted">Templates</span></div>
                         </div>
                     </div>
                 </div>
-
                 <div class="output-section">
                     <p class="output-label">Output</p>
                     <div class="output-list">
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('unified-inbox')">
                             <span class="output-dot" style="background: var(--accent-cyan);"></span>
                             <span class="output-name">unified-inbox</span>
                             <span class="output-badge ui">UI</span>
                         </div>
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('conversations-json')">
                             <span class="output-dot" style="background: var(--accent-blue);"></span>
                             <span class="output-name">conversations.json</span>
                             <span class="output-badge json">json</span>
                         </div>
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('priority-alerts')">
                             <span class="output-dot" style="background: var(--accent-purple);"></span>
                             <span class="output-name">priority-alerts</span>
                             <span class="output-badge auto">auto</span>
@@ -601,7 +346,7 @@
                 </div>
             </div>
 
-            <!-- Flow 2: Bulk Messaging -->
+            <!-- Flow 2 -->
             <div class="flow-card">
                 <div class="flow-header">
                     <div class="flow-icon teal">📡</div>
@@ -610,71 +355,54 @@
                         <p class="flow-subtitle">flow_02 // bulk messaging</p>
                     </div>
                 </div>
-
                 <div class="steps-list">
                     <div class="step-item">
                         <div class="step-number teal">01</div>
                         <div class="step-content">
                             <h3 class="step-title">Compose Message</h3>
                             <p class="step-desc">Soạn tin với template & variables {name}, {company}</p>
-                            <div class="step-tags">
-                                <span class="tag cyan">Templates</span>
-                                <span class="tag muted">Variables</span>
-                            </div>
+                            <div class="step-tags"><span class="tag cyan">Templates</span><span class="tag muted">Variables</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number teal">02</div>
                         <div class="step-content">
                             <h3 class="step-title">Select Groups</h3>
                             <p class="step-desc">Chọn nhiều groups từ Zalo, Telegram, WhatsApp cùng lúc</p>
-                            <div class="step-tags">
-                                <span class="tag blue">Multi-select</span>
-                                <span class="tag muted">Filters</span>
-                            </div>
+                            <div class="step-tags"><span class="tag blue">Multi-select</span><span class="tag muted">Filters</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number teal">03</div>
                         <div class="step-content">
                             <h3 class="step-title">Schedule & Queue</h3>
                             <p class="step-desc">Đặt lịch gửi, rate limiting tránh spam detection</p>
-                            <div class="step-tags">
-                                <span class="tag amber">Scheduler</span>
-                                <span class="tag muted">Queue</span>
-                            </div>
+                            <div class="step-tags"><span class="tag amber">Scheduler</span><span class="tag muted">Queue</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number teal">04</div>
                         <div class="step-content">
                             <h3 class="step-title">Broadcast & Track</h3>
                             <p class="step-desc">Gửi đồng loạt, tracking delivery status realtime</p>
-                            <div class="step-tags">
-                                <span class="tag green">Tracking</span>
-                                <span class="tag muted">Analytics</span>
-                            </div>
+                            <div class="step-tags"><span class="tag green">Tracking</span><span class="tag muted">Analytics</span></div>
                         </div>
                     </div>
                 </div>
-
                 <div class="output-section">
                     <p class="output-label">Output</p>
                     <div class="output-list">
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('broadcast-report')">
                             <span class="output-dot" style="background: var(--accent-green);"></span>
                             <span class="output-name">broadcast-report.md</span>
                             <span class="output-badge md">.md</span>
                         </div>
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('delivery-analytics')">
                             <span class="output-dot" style="background: var(--accent-amber);"></span>
                             <span class="output-name">delivery-analytics</span>
                             <span class="output-badge chart">chart</span>
                         </div>
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('scheduled-queue')">
                             <span class="output-dot" style="background: var(--accent-purple);"></span>
                             <span class="output-name">scheduled-queue</span>
                             <span class="output-badge auto">auto</span>
@@ -683,7 +411,7 @@
                 </div>
             </div>
 
-            <!-- Flow 3: CV Screening -->
+            <!-- Flow 3 -->
             <div class="flow-card">
                 <div class="flow-header">
                     <div class="flow-icon coral">📋</div>
@@ -692,71 +420,54 @@
                         <p class="flow-subtitle">flow_03 // hr matching</p>
                     </div>
                 </div>
-
                 <div class="steps-list">
                     <div class="step-item">
                         <div class="step-number emerald">01</div>
                         <div class="step-content">
                             <h3 class="step-title">Define Requirements</h3>
                             <p class="step-desc">Nhập JD: skills, experience, education với trọng số</p>
-                            <div class="step-tags">
-                                <span class="tag pink">JD Input</span>
-                                <span class="tag muted">Weights</span>
-                            </div>
+                            <div class="step-tags"><span class="tag pink">JD Input</span><span class="tag muted">Weights</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number emerald">02</div>
                         <div class="step-content">
                             <h3 class="step-title">Parse CVs</h3>
                             <p class="step-desc">Upload batch CVs (PDF, DOCX), extract structured data</p>
-                            <div class="step-tags">
-                                <span class="tag purple">PDF Parser</span>
-                                <span class="tag muted">OCR</span>
-                            </div>
+                            <div class="step-tags"><span class="tag purple">PDF Parser</span><span class="tag muted">OCR</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number emerald">03</div>
                         <div class="step-content">
                             <h3 class="step-title">AI Matching</h3>
                             <p class="step-desc">Claude AI so khớp skills & experience, tính match score</p>
-                            <div class="step-tags">
-                                <span class="tag amber">Claude AI</span>
-                                <span class="tag muted">Embeddings</span>
-                            </div>
+                            <div class="step-tags"><span class="tag amber">Claude AI</span><span class="tag muted">Embeddings</span></div>
                         </div>
                     </div>
-
                     <div class="step-item">
                         <div class="step-number emerald">04</div>
                         <div class="step-content">
                             <h3 class="step-title">Rank & Report</h3>
                             <p class="step-desc">Xếp hạng ứng viên, phân tích strengths & gaps</p>
-                            <div class="step-tags">
-                                <span class="tag green">Ranking</span>
-                                <span class="tag muted">Insights</span>
-                            </div>
+                            <div class="step-tags"><span class="tag green">Ranking</span><span class="tag muted">Insights</span></div>
                         </div>
                     </div>
                 </div>
-
                 <div class="output-section">
                     <p class="output-label">Output</p>
                     <div class="output-list">
-                        <div class="output-item">
-                            <span class="output-dot" style="background: #f97316;"></span>
+                        <div class="output-item" onclick="openModal('candidate-ranking')">
+                            <span class="output-dot" style="background: var(--accent-orange);"></span>
                             <span class="output-name">candidate-ranking.xlsx</span>
                             <span class="output-badge xlsx">.xlsx</span>
                         </div>
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('match-analysis')">
                             <span class="output-dot" style="background: var(--accent-green);"></span>
                             <span class="output-name">match-analysis.md</span>
                             <span class="output-badge md">.md</span>
                         </div>
-                        <div class="output-item">
+                        <div class="output-item" onclick="openModal('shortlist-alerts')">
                             <span class="output-dot" style="background: var(--accent-purple);"></span>
                             <span class="output-name">shortlist-alerts</span>
                             <span class="output-badge auto">auto</span>
@@ -766,28 +477,333 @@
             </div>
         </div>
 
-        <!-- Footer -->
         <footer class="footer">
             <div class="footer-badges">
-                <div class="footer-badge">
-                    <div class="footer-badge-value" style="color: var(--accent-cyan);">4+</div>
-                    <div class="footer-badge-label">Platforms</div>
-                </div>
-                <div class="footer-badge">
-                    <div class="footer-badge-value" style="color: var(--accent-green);">1</div>
-                    <div class="footer-badge-label">Unified Inbox</div>
-                </div>
-                <div class="footer-badge">
-                    <div class="footer-badge-value" style="color: var(--accent-amber);">AI</div>
-                    <div class="footer-badge-label">CV Matching</div>
-                </div>
-                <div class="footer-badge">
-                    <div class="footer-badge-value" style="color: var(--accent-purple);">∞</div>
-                    <div class="footer-badge-label">Bulk Sends</div>
-                </div>
+                <div class="footer-badge"><div class="footer-badge-value" style="color: var(--accent-cyan);">4+</div><div class="footer-badge-label">Platforms</div></div>
+                <div class="footer-badge"><div class="footer-badge-value" style="color: var(--accent-green);">1</div><div class="footer-badge-label">Unified Inbox</div></div>
+                <div class="footer-badge"><div class="footer-badge-value" style="color: var(--accent-amber);">AI</div><div class="footer-badge-label">CV Matching</div></div>
+                <div class="footer-badge"><div class="footer-badge-value" style="color: var(--accent-purple);">∞</div><div class="footer-badge-label">Bulk Sends</div></div>
             </div>
             <p class="footer-text">Unified Messaging & HR Workflow — Powered by Claude AI + MCP Protocol — Sales & HR Demo</p>
         </footer>
     </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const modalData = {
+            'unified-inbox': {
+                title: 'unified-inbox — Live Messages',
+                badge: 'live',
+                badgeText: 'LIVE',
+                content: `
+                    <p class="terminal-section-title">INCOMING MESSAGES — ALL CHANNELS</p>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <div class="message-user"><span class="avatar zalo">Z</span><span class="message-name">Nguyen Van A</span></div>
+                            <span class="platform-badge">Zalo</span>
+                        </div>
+                        <p class="message-text">Cho minh hoi bao gia dich vu SEO cho website ban hang duoc khong?</p>
+                        <div class="message-meta"><span>09:14 AM</span><span>—</span><span class="intent-tag">Intent: Hoi gia</span></div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <div class="message-user"><span class="avatar telegram">T</span><span class="message-name">Le Thi B</span></div>
+                            <span class="platform-badge">Telegram</span>
+                        </div>
+                        <p class="message-text">Gui CV ung tuyen vi tri Business Development nhe. [CV_LeThiB.pdf]</p>
+                        <div class="message-meta"><span>09:18 AM</span><span>—</span><span class="intent-tag recruitment">Intent: Tuyen dung</span></div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <div class="message-user"><span class="avatar whatsapp">W</span><span class="message-name">Tran Van C</span></div>
+                            <span class="platform-badge">WhatsApp</span>
+                        </div>
+                        <p class="message-text">Hom truoc mua goi Premium ma chua nhan duoc tai khoan, check giup minh voi</p>
+                        <div class="message-meta"><span>09:22 AM</span><span>—</span><span class="intent-tag support">Intent: Ho tro</span></div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <div class="message-user"><span class="avatar viber">V</span><span class="message-name">Pham D</span></div>
+                            <span class="platform-badge">Viber</span>
+                        </div>
+                        <p class="message-text">Co chuong trinh uu dai thang nay khong ban oi?</p>
+                        <div class="message-meta"><span>09:25 AM</span><span>—</span><span class="intent-tag">Intent: Hoi gia</span></div>
+                    </div>
+                    <div class="channel-summary">
+                        <p class="terminal-section-title">CHANNEL SUMMARY</p>
+                        <div class="channel-row"><span class="channel-name">Zalo</span><span class="channel-count">12 unread</span></div>
+                        <div class="channel-row"><span class="channel-name">Telegram</span><span class="channel-count">8 unread</span></div>
+                        <div class="channel-row"><span class="channel-name">WhatsApp</span><span class="channel-count">5 unread</span></div>
+                        <div class="channel-row"><span class="channel-name">Viber</span><span class="channel-count">3 unread</span></div>
+                    </div>
+                `
+            },
+            'conversations-json': {
+                title: 'conversations.json — Data Export',
+                badge: 'json',
+                badgeText: 'JSON',
+                content: `
+                    <p class="terminal-section-title">EXPORTED CONVERSATION DATA</p>
+                    <pre style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-secondary); line-height: 1.6; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 8px; overflow-x: auto;">
+{
+  <span style="color: var(--accent-cyan);">"conversations"</span>: [
+    {
+      <span style="color: var(--accent-cyan);">"id"</span>: <span style="color: var(--accent-green);">"conv_001"</span>,
+      <span style="color: var(--accent-cyan);">"platform"</span>: <span style="color: var(--accent-green);">"zalo"</span>,
+      <span style="color: var(--accent-cyan);">"user"</span>: <span style="color: var(--accent-green);">"Nguyen Van A"</span>,
+      <span style="color: var(--accent-cyan);">"intent"</span>: <span style="color: var(--accent-green);">"pricing_inquiry"</span>,
+      <span style="color: var(--accent-cyan);">"status"</span>: <span style="color: var(--accent-green);">"pending"</span>,
+      <span style="color: var(--accent-cyan);">"priority"</span>: <span style="color: var(--accent-amber);">2</span>
+    },
+    {
+      <span style="color: var(--accent-cyan);">"id"</span>: <span style="color: var(--accent-green);">"conv_002"</span>,
+      <span style="color: var(--accent-cyan);">"platform"</span>: <span style="color: var(--accent-green);">"telegram"</span>,
+      <span style="color: var(--accent-cyan);">"user"</span>: <span style="color: var(--accent-green);">"Le Thi B"</span>,
+      <span style="color: var(--accent-cyan);">"intent"</span>: <span style="color: var(--accent-green);">"recruitment"</span>,
+      <span style="color: var(--accent-cyan);">"status"</span>: <span style="color: var(--accent-green);">"new"</span>,
+      <span style="color: var(--accent-cyan);">"priority"</span>: <span style="color: var(--accent-amber);">1</span>
+    }
+  ],
+  <span style="color: var(--accent-cyan);">"total"</span>: <span style="color: var(--accent-amber);">28</span>,
+  <span style="color: var(--accent-cyan);">"exported_at"</span>: <span style="color: var(--accent-green);">"2024-01-15T09:30:00Z"</span>
+}</pre>
+                `
+            },
+            'priority-alerts': {
+                title: 'priority-alerts — Auto Notifications',
+                badge: 'auto',
+                badgeText: 'AUTO',
+                content: `
+                    <p class="terminal-section-title">ACTIVE PRIORITY ALERTS</p>
+                    <div class="message-item" style="border-left: 3px solid var(--accent-red);">
+                        <div class="message-header">
+                            <div class="message-user"><span style="color: var(--accent-red); font-weight: 600;">🔴 HIGH PRIORITY</span></div>
+                            <span class="platform-badge">WhatsApp</span>
+                        </div>
+                        <p class="message-text">Support ticket chua duoc xu ly sau 2h - Tran Van C</p>
+                        <div class="message-meta"><span>Auto-escalated</span></div>
+                    </div>
+                    <div class="message-item" style="border-left: 3px solid var(--accent-amber);">
+                        <div class="message-header">
+                            <div class="message-user"><span style="color: var(--accent-amber); font-weight: 600;">🟡 MEDIUM PRIORITY</span></div>
+                            <span class="platform-badge">Telegram</span>
+                        </div>
+                        <p class="message-text">CV moi can review - Le Thi B (Business Development)</p>
+                        <div class="message-meta"><span>HR team notified</span></div>
+                    </div>
+                    <div class="channel-summary">
+                        <p class="terminal-section-title">ALERT STATS TODAY</p>
+                        <div class="channel-row"><span class="channel-name">High Priority</span><span class="channel-count" style="color: var(--accent-red);">3 alerts</span></div>
+                        <div class="channel-row"><span class="channel-name">Medium Priority</span><span class="channel-count" style="color: var(--accent-amber);">7 alerts</span></div>
+                        <div class="channel-row"><span class="channel-name">Auto-resolved</span><span class="channel-count" style="color: var(--accent-green);">12 alerts</span></div>
+                    </div>
+                `
+            },
+            'delivery-analytics': {
+                title: 'delivery-analytics — Campaign Report',
+                badge: 'chart',
+                badgeText: 'CHART',
+                content: `
+                    <p class="terminal-section-title">DELIVERY STATUS BY PLATFORM</p>
+                    <div class="chart-bars">
+                        <div class="chart-bar-wrapper"><div class="chart-value">98%</div><div class="chart-bar" style="height: 98px; background: #0068ff;"></div><div class="chart-label">Zalo</div></div>
+                        <div class="chart-bar-wrapper"><div class="chart-value">95%</div><div class="chart-bar" style="height: 95px; background: #229ed9;"></div><div class="chart-label">Telegram</div></div>
+                        <div class="chart-bar-wrapper"><div class="chart-value">92%</div><div class="chart-bar" style="height: 92px; background: #25d366;"></div><div class="chart-label">WhatsApp</div></div>
+                        <div class="chart-bar-wrapper"><div class="chart-value">88%</div><div class="chart-bar" style="height: 88px; background: #0a66c2;"></div><div class="chart-label">LinkedIn</div></div>
+                    </div>
+                    <div class="channel-summary">
+                        <p class="terminal-section-title">CAMPAIGN STATS</p>
+                        <div class="channel-row"><span class="channel-name">Total Sent</span><span class="channel-count" style="color: var(--accent-cyan);">1,247 messages</span></div>
+                        <div class="channel-row"><span class="channel-name">Delivered</span><span class="channel-count" style="color: var(--accent-green);">1,198 (96%)</span></div>
+                        <div class="channel-row"><span class="channel-name">Read</span><span class="channel-count" style="color: var(--accent-amber);">876 (70%)</span></div>
+                        <div class="channel-row"><span class="channel-name">Failed</span><span class="channel-count" style="color: var(--accent-red);">49 (4%)</span></div>
+                    </div>
+                `
+            },
+            'broadcast-report': {
+                title: 'broadcast-report.md — Summary',
+                badge: 'md',
+                badgeText: '.MD',
+                content: `
+                    <p class="terminal-section-title">BROADCAST CAMPAIGN SUMMARY</p>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary); line-height: 1.8;">
+                        <p style="color: var(--text-primary); font-size: 16px; margin-bottom: 12px;"><strong># Campaign: Thang 1 Promotion</strong></p>
+                        <p style="margin-bottom: 8px;">📅 <strong>Date:</strong> 15/01/2024 - 09:00 AM</p>
+                        <p style="margin-bottom: 8px;">📊 <strong>Total Recipients:</strong> 1,247</p>
+                        <p style="margin-bottom: 8px;">✅ <strong>Success Rate:</strong> 96%</p>
+                        <p style="margin-bottom: 16px;">📖 <strong>Read Rate:</strong> 70%</p>
+                        <p style="color: var(--accent-teal); margin-bottom: 8px;">## Top Performing Channels</p>
+                        <p>1. Zalo Groups - 98% delivery</p>
+                        <p>2. Telegram Channels - 95% delivery</p>
+                        <p style="margin-top: 16px; color: var(--accent-amber);">## Action Items</p>
+                        <p>- Retry 49 failed messages</p>
+                        <p>- Follow up with non-readers</p>
+                    </div>
+                `
+            },
+            'scheduled-queue': {
+                title: 'scheduled-queue — Pending Jobs',
+                badge: 'auto',
+                badgeText: 'AUTO',
+                content: `
+                    <p class="terminal-section-title">SCHEDULED BROADCASTS</p>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <div class="message-user"><span style="color: var(--accent-amber);">⏰</span><span class="message-name">Flash Sale Announcement</span></div>
+                            <span class="platform-badge">In 2 hours</span>
+                        </div>
+                        <p class="message-text">Target: 5 Zalo Groups, 3 Telegram Channels</p>
+                        <div class="message-meta"><span>~850 recipients</span></div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-header">
+                            <div class="message-user"><span style="color: var(--accent-blue);">📅</span><span class="message-name">Weekly Newsletter</span></div>
+                            <span class="platform-badge">Tomorrow 8:00 AM</span>
+                        </div>
+                        <p class="message-text">Target: All channels</p>
+                        <div class="message-meta"><span>~2,100 recipients</span></div>
+                    </div>
+                    <div class="channel-summary">
+                        <p class="terminal-section-title">QUEUE STATUS</p>
+                        <div class="channel-row"><span class="channel-name">Pending</span><span class="channel-count" style="color: var(--accent-amber);">4 campaigns</span></div>
+                        <div class="channel-row"><span class="channel-name">Processing</span><span class="channel-count" style="color: var(--accent-cyan);">1 campaign</span></div>
+                        <div class="channel-row"><span class="channel-name">Completed Today</span><span class="channel-count" style="color: var(--accent-green);">3 campaigns</span></div>
+                    </div>
+                `
+            },
+            'candidate-ranking': {
+                title: 'candidate-ranking — Business Development',
+                badge: 'xlsx',
+                badgeText: 'XLSX',
+                content: `
+                    <p class="terminal-section-title">TOP CANDIDATES — SORTED BY MATCH SCORE</p>
+                    <div class="candidate-item">
+                        <div class="candidate-info"><span class="candidate-rank gold">1</span><div><div class="candidate-name">Nguyen Minh Tuan</div><div class="candidate-role">5 yrs exp • MBA • Full match</div></div></div>
+                        <span class="match-score high">95%</span>
+                    </div>
+                    <div class="candidate-item">
+                        <div class="candidate-info"><span class="candidate-rank silver">2</span><div><div class="candidate-name">Tran Thu Ha</div><div class="candidate-role">4 yrs exp • BA • Strong skills</div></div></div>
+                        <span class="match-score high">89%</span>
+                    </div>
+                    <div class="candidate-item">
+                        <div class="candidate-info"><span class="candidate-rank bronze">3</span><div><div class="candidate-name">Le Hoang Nam</div><div class="candidate-role">3 yrs exp • BA • Good fit</div></div></div>
+                        <span class="match-score medium">76%</span>
+                    </div>
+                    <div class="candidate-item">
+                        <div class="candidate-info"><span class="candidate-rank" style="background: var(--bg-step); color: var(--text-secondary);">4</span><div><div class="candidate-name">Pham Thi Lan</div><div class="candidate-role">2 yrs exp • BA • Potential</div></div></div>
+                        <span class="match-score medium">71%</span>
+                    </div>
+                    <div class="channel-summary">
+                        <p class="terminal-section-title">SCREENING STATS</p>
+                        <div class="channel-row"><span class="channel-name">Total CVs Processed</span><span class="channel-count">47 candidates</span></div>
+                        <div class="channel-row"><span class="channel-name">Shortlisted (>70%)</span><span class="channel-count" style="color: var(--accent-green);">12 candidates</span></div>
+                        <div class="channel-row"><span class="channel-name">Avg Match Score</span><span class="channel-count" style="color: var(--accent-amber);">68%</span></div>
+                    </div>
+                `
+            },
+            'match-analysis': {
+                title: 'match-analysis.md — Insights',
+                badge: 'md',
+                badgeText: '.MD',
+                content: `
+                    <p class="terminal-section-title">MATCHING ANALYSIS REPORT</p>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary); line-height: 1.8;">
+                        <p style="color: var(--text-primary); font-size: 16px; margin-bottom: 12px;"><strong># Position: Business Development Manager</strong></p>
+                        <p style="color: var(--accent-green); margin-bottom: 8px;">## Top Strengths Found</p>
+                        <p>✅ 85% candidates have B2B experience</p>
+                        <p>✅ 72% have relevant industry background</p>
+                        <p style="margin-top: 16px; color: var(--accent-red);">## Common Gaps</p>
+                        <p>❌ Only 34% have MBA/Master degree</p>
+                        <p>❌ 45% lack English proficiency</p>
+                        <p style="margin-top: 16px; color: var(--accent-cyan);">## AI Recommendations</p>
+                        <p>→ Focus on top 5 candidates for interview</p>
+                        <p>→ Consider upskilling programs for #6-12</p>
+                    </div>
+                `
+            },
+            'shortlist-alerts': {
+                title: 'shortlist-alerts — HR Notifications',
+                badge: 'auto',
+                badgeText: 'AUTO',
+                content: `
+                    <p class="terminal-section-title">SHORTLIST NOTIFICATIONS</p>
+                    <div class="message-item" style="border-left: 3px solid var(--accent-green);">
+                        <div class="message-header">
+                            <div class="message-user"><span style="color: var(--accent-green); font-weight: 600;">✅ NEW SHORTLIST</span></div>
+                            <span class="platform-badge">Just now</span>
+                        </div>
+                        <p class="message-text">Nguyen Minh Tuan (95% match) - Ready for interview</p>
+                        <div class="message-meta"><span>Sent to: HR Team, Hiring Manager</span></div>
+                    </div>
+                    <div class="message-item" style="border-left: 3px solid var(--accent-cyan);">
+                        <div class="message-header">
+                            <div class="message-user"><span style="color: var(--accent-cyan); font-weight: 600;">📧 AUTO EMAIL</span></div>
+                            <span class="platform-badge">5 min ago</span>
+                        </div>
+                        <p class="message-text">Interview invitation sent to top 3 candidates</p>
+                        <div class="message-meta"><span>Delivery confirmed</span></div>
+                    </div>
+                    <div class="channel-summary">
+                        <p class="terminal-section-title">NOTIFICATION STATS</p>
+                        <div class="channel-row"><span class="channel-name">Shortlist Alerts</span><span class="channel-count" style="color: var(--accent-green);">12 sent</span></div>
+                        <div class="channel-row"><span class="channel-name">Interview Invites</span><span class="channel-count" style="color: var(--accent-cyan);">5 sent</span></div>
+                        <div class="channel-row"><span class="channel-name">Rejection Emails</span><span class="channel-count" style="color: var(--accent-red);">35 queued</span></div>
+                    </div>
+                `
+            }
+        };
+
+        function openModal(id) {
+            const data = modalData[id];
+            if (!data) return;
+
+            const badgeClass = data.badge === 'live' ? 'live' : 
+                              data.badge === 'chart' ? 'chart' : 
+                              data.badge === 'xlsx' ? 'xlsx' : 
+                              data.badge === 'json' ? 'live' : 'chart';
+            
+            const badgeStyle = data.badge === 'json' ? 'background: var(--accent-blue);' :
+                              data.badge === 'md' ? 'background: var(--accent-green);' :
+                              data.badge === 'auto' ? 'background: var(--accent-purple);' : '';
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="terminal-preview">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot red" onclick="closeModal()"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                        </div>
+                        <span class="terminal-title">${data.title}</span>
+                        <span class="terminal-badge ${badgeClass}" style="${badgeStyle}">${data.badgeText}</span>
+                    </div>
+                    <div class="terminal-content">
+                        ${data.content}
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== document.getElementById('modalOverlay')) return;
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 </body>
 </html>
