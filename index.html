@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Marketing Workflow - Tech Company</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Sora:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Unified Messaging & HR Assistant | AI Workflow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: rgba(255,255,255,0.03);
-            --accent-cyan: #00d4ff;
+            --bg-primary: #0a0b10;
+            --bg-secondary: #0f1015;
+            --bg-card: #12141a;
+            --bg-step: #0d0e12;
+            --text-primary: #ffffff;
+            --text-secondary: #8a8f98;
+            --text-muted: #4a4f58;
+            --border-color: #1e2028;
+            --border-light: #252830;
+            --accent-cyan: #22d3ee;
+            --accent-teal: #14b8a6;
+            --accent-green: #10b981;
+            --accent-emerald: #34d399;
+            --accent-blue: #3b82f6;
             --accent-purple: #8b5cf6;
             --accent-pink: #ec4899;
-            --accent-green: #10b981;
-            --accent-orange: #f59e0b;
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255,255,255,0.6);
-            --border-color: rgba(255,255,255,0.08);
-            --glow-cyan: 0 0 30px rgba(0,212,255,0.3);
-            --glow-purple: 0 0 30px rgba(139,92,246,0.3);
+            --accent-amber: #f59e0b;
+            --glow-cyan: rgba(34, 211, 238, 0.15);
         }
 
         * {
@@ -29,1430 +34,760 @@
         }
 
         body {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
+            line-height: 1.5;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Animated Background */
-        .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .bg-gradient::before {
+        /* Background Grid Effect */
+        body::before {
             content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0,212,255,0.08) 0%, transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(139,92,246,0.08) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(236,72,153,0.05) 0%, transparent 50%);
-            animation: bgFloat 20s ease-in-out infinite;
-        }
-
-        @keyframes bgFloat {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(2%, 2%) rotate(1deg); }
-            66% { transform: translate(-2%, 1%) rotate(-1deg); }
-        }
-
-        /* Grid Pattern */
-        .grid-pattern {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
+                linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
             pointer-events: none;
             z-index: 0;
         }
 
         .container {
-            position: relative;
-            z-index: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 40px 24px 60px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Header */
+        /* Header with AI Agent */
         .header {
             text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
-            background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(139,92,246,0.1));
-            border: 1px solid rgba(0,212,255,0.3);
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0.2); }
-            50% { box-shadow: 0 0 20px 5px rgba(0,212,255,0.1); }
-        }
-
-        .badge-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-cyan);
-            border-radius: 50%;
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(36px, 6vw, 64px);
-            font-weight: 700;
-            line-height: 1.1;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 50%, var(--accent-cyan) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .subtitle {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Stats Bar */
-        .stats-bar {
+        .agent-section {
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin: 50px 0;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px 30px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: var(--glow-cyan);
-        }
-
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Workflow Section */
-        .workflow-title {
-            text-align: center;
-            margin-bottom: 50px;
-            animation: fadeInUp 1s ease-out 0.5s both;
-        }
-
-        .workflow-title h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 32px;
-            font-weight: 600;
+            gap: 24px;
             margin-bottom: 10px;
         }
 
-        .workflow-title p {
+        .side-badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
             color: var(--text-secondary);
         }
 
-        /* Main Workflow Grid */
-        .workflow-grid {
+        .agent-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-cyan);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--bg-primary);
+            box-shadow: 
+                0 0 30px var(--glow-cyan),
+                0 0 60px rgba(34, 211, 238, 0.1),
+                inset 0 0 30px rgba(34, 211, 238, 0.05);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--glow-cyan), 0 0 60px rgba(34, 211, 238, 0.1); }
+            50% { box-shadow: 0 0 40px var(--glow-cyan), 0 0 80px rgba(34, 211, 238, 0.15); }
+        }
+
+        .agent-icon {
+            font-size: 36px;
+            margin-bottom: 4px;
+        }
+
+        .agent-label {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+        }
+
+        /* Connection Lines */
+        .connections {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 60px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .connection-line {
+            position: absolute;
+            background: var(--border-color);
+        }
+
+        .connection-vertical {
+            width: 1px;
+            height: 30px;
+            top: 0;
+        }
+
+        .connection-horizontal {
+            height: 1px;
+            top: 30px;
+        }
+
+        .connection-down {
+            width: 1px;
+            height: 30px;
+            top: 30px;
+        }
+
+        .arrow-down {
+            position: absolute;
+            top: 55px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--border-light);
+        }
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title-section h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .title-section .subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Flow Grid - 3 Columns */
+        .flow-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .workflow-card {
-            position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 35px;
-            backdrop-filter: blur(20px);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            cursor: pointer;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out both;
-        }
-
-        .workflow-card:nth-child(1) { animation-delay: 0.1s; }
-        .workflow-card:nth-child(2) { animation-delay: 0.2s; }
-        .workflow-card:nth-child(3) { animation-delay: 0.3s; }
-        .workflow-card:nth-child(4) { animation-delay: 0.4s; }
-        .workflow-card:nth-child(5) { animation-delay: 0.5s; }
-        .workflow-card:nth-child(6) { animation-delay: 0.6s; }
-
-        .workflow-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--card-accent) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .workflow-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--card-accent);
-        }
-
-        .workflow-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .workflow-card[data-step="1"] { --card-accent: var(--accent-cyan); }
-        .workflow-card[data-step="2"] { --card-accent: var(--accent-purple); }
-        .workflow-card[data-step="3"] { --card-accent: var(--accent-pink); }
-        .workflow-card[data-step="4"] { --card-accent: var(--accent-green); }
-        .workflow-card[data-step="5"] { --card-accent: var(--accent-orange); }
-        .workflow-card[data-step="6"] { --card-accent: var(--accent-cyan); }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--card-accent), transparent);
-            border: 2px solid var(--card-accent);
-            border-radius: 14px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            transition: all 0.4s ease;
-        }
-
-        .workflow-card:hover .step-number {
-            box-shadow: 0 0 25px var(--card-accent);
-            transform: rotate(5deg);
-        }
-
-        .card-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .card-description {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
-
-        .card-features {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            font-size: 13px;
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            background: rgba(255,255,255,0.06);
-            transform: translateX(5px);
-        }
-
-        .feature-icon {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .ai-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.2));
-            border: 1px solid rgba(139,92,246,0.3);
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-left: auto;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        /* Timeline Connector */
-        .timeline-section {
-            position: relative;
-            padding: 60px 0;
-            margin: 40px 0;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
-            transform: translateX(-50%);
-        }
-
-        .timeline-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .timeline-title h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        /* Interactive Demo Section */
-        .demo-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 50px;
-            margin: 60px 0;
-            backdrop-filter: blur(20px);
-            animation: fadeInUp 1s ease-out 0.8s both;
-        }
-
-        .demo-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .demo-header h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .demo-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .demo-tab {
-            padding: 12px 24px;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 100px;
-            color: var(--text-secondary);
-            font-family: 'Sora', sans-serif;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .demo-tab:hover {
-            border-color: var(--accent-cyan);
-            color: var(--text-primary);
-        }
-
-        .demo-tab.active {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            border-color: transparent;
-            color: var(--text-primary);
-        }
-
-        .demo-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .demo-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .demo-visual {
-            background: var(--bg-secondary);
-            border-radius: 16px;
-            padding: 30px;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
             gap: 20px;
         }
 
-        .content-preview {
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 20px;
+        @media (max-width: 1100px) {
+            .flow-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Flow Card */
+        .flow-card {
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
         }
 
-        .content-preview-header {
+        .flow-header {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 24px;
         }
 
-        .preview-avatar {
+        .flow-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 18px;
+            flex-shrink: 0;
         }
 
-        .preview-meta {
+        .flow-icon.purple { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); }
+        .flow-icon.teal { background: rgba(20, 184, 166, 0.15); color: var(--accent-teal); }
+        .flow-icon.coral { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+
+        .flow-title-group {
             flex: 1;
         }
 
-        .preview-name {
+        .flow-title {
+            font-size: 16px;
             font-weight: 600;
-            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
         }
 
-        .preview-time {
+        .flow-title.purple { color: #c4b5fd; }
+        .flow-title.teal { color: #5eead4; }
+        .flow-title.coral { color: #fdba74; }
+
+        .flow-subtitle {
             font-size: 12px;
-            color: var(--text-secondary);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .preview-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            padding: 15px;
-            background: rgba(0,212,255,0.05);
-            border-left: 3px solid var(--accent-cyan);
-            border-radius: 0 8px 8px 0;
+        /* Steps */
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        .preview-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(139,92,246,0.1));
-            border-radius: 12px;
-            margin-top: 15px;
+        .step-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            color: var(--text-secondary);
-            border: 1px dashed var(--border-color);
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+            color: white;
         }
 
-        .generate-btn {
-            display: inline-flex;
+        .step-number.green { background: var(--accent-green); }
+        .step-number.teal { background: var(--accent-teal); }
+        .step-number.emerald { background: var(--accent-emerald); }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .step-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid;
+        }
+
+        .tag.teal {
+            background: rgba(20, 184, 166, 0.1);
+            border-color: rgba(20, 184, 166, 0.3);
+            color: var(--accent-teal);
+        }
+
+        .tag.muted {
+            background: transparent;
+            border-color: var(--border-light);
+            color: var(--text-secondary);
+        }
+
+        .tag.green {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: var(--accent-green);
+        }
+
+        .tag.amber {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: var(--accent-amber);
+        }
+
+        .tag.purple {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.3);
+            color: var(--accent-purple);
+        }
+
+        .tag.blue {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: var(--accent-blue);
+        }
+
+        .tag.pink {
+            background: rgba(236, 72, 153, 0.1);
+            border-color: rgba(236, 72, 153, 0.3);
+            color: var(--accent-pink);
+        }
+
+        .tag.cyan {
+            background: rgba(34, 211, 238, 0.1);
+            border-color: rgba(34, 211, 238, 0.3);
+            color: var(--accent-cyan);
+        }
+
+        /* Output Section */
+        .output-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .output-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .output-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .output-item {
+            display: flex;
             align-items: center;
             gap: 10px;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            border: none;
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-family: 'Sora', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
+            padding: 10px 14px;
+            background: var(--bg-step);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
 
-        .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,212,255,0.3);
-        }
-
-        .generate-btn.loading {
-            pointer-events: none;
-        }
-
-        .generate-btn.loading .btn-text {
-            display: none;
-        }
-
-        .generate-btn .spinner {
-            display: none;
-        }
-
-        .generate-btn.loading .spinner {
-            display: block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
+        .output-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .output-name {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+        }
+
+        .output-badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .output-badge.md { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+        .output-badge.json { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+        .output-badge.xlsx { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .output-badge.auto { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); }
+        .output-badge.ui { background: rgba(34, 211, 238, 0.15); color: var(--accent-cyan); }
+        .output-badge.chart { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding: 24px;
+        }
+
+        .footer-badges {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 20px;
+        }
+
+        .footer-badge {
+            text-align: center;
+        }
+
+        .footer-badge-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .footer-badge-label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
+            .agent-section {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .side-badge {
+                order: 1;
+            }
+            
+            .agent-circle {
+                order: 0;
             }
 
-            .stats-bar {
-                gap: 15px;
-            }
-
-            .stat-item {
-                padding: 15px 20px;
-            }
-
-            .workflow-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .demo-section {
-                padding: 30px 20px;
-            }
-
-            .workflow-diagram-container {
-                overflow-x: auto;
-            }
-
-            .workflow-diagram {
-                min-width: 900px;
-            }
-
-            .diagram-legend {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-        }
-
-        /* Workflow Diagram Styles */
-        .workflow-diagram-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 40px 30px 30px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(20px);
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-            overflow: hidden;
-        }
-
-        .workflow-diagram {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: block;
-        }
-
-        .diagram-step {
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .diagram-step:hover {
-            transform: translateY(-5px);
-        }
-
-        .diagram-step:hover .step-box {
-            filter: brightness(1.3);
-        }
-
-        .diagram-step .step-box {
-            transition: all 0.4s ease;
-        }
-
-        .diagram-step:hover circle {
-            filter: drop-shadow(0 0 15px currentColor);
-        }
-
-        .step-6-special .step-box {
-            animation: pulse-border 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse-border {
-            0%, 100% { 
-                filter: drop-shadow(0 0 5px rgba(6,182,212,0.3));
-            }
-            50% { 
-                filter: drop-shadow(0 0 20px rgba(6,182,212,0.5));
-            }
-        }
-
-        .flow-line {
-            stroke-dasharray: 6 4;
-            stroke-dashoffset: 0;
-        }
-
-        .flow-1 { animation: flowDash 1.5s linear infinite; }
-        .flow-2 { animation: flowDash 1.5s linear infinite 0.2s; }
-        .flow-3 { animation: flowDash 1.5s linear infinite 0.4s; }
-        .flow-4 { animation: flowDash 1.5s linear infinite 0.6s; }
-
-        @keyframes flowDash {
-            0% {
-                stroke-dashoffset: 50;
-            }
-            100% {
-                stroke-dashoffset: -50;
-            }
-        }
-
-        .feedback-loop {
-            stroke-dasharray: 12 8;
-            stroke-dashoffset: 0;
-            animation: flowFeedback 12s linear infinite;
-        }
-
-        @keyframes flowFeedback {
-            0% {
-                stroke-dashoffset: 0;
-            }
-            100% {
-                stroke-dashoffset: -1500;
-            }
-        }
-
-        .diagram-legend {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-cyan);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
-        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
-        .particle:nth-child(4) { left: 40%; animation-delay: 6s; }
-        .particle:nth-child(5) { left: 50%; animation-delay: 8s; }
-        .particle:nth-child(6) { left: 60%; animation-delay: 10s; }
-        .particle:nth-child(7) { left: 70%; animation-delay: 12s; }
-        .particle:nth-child(8) { left: 80%; animation-delay: 14s; }
-        .particle:nth-child(9) { left: 90%; animation-delay: 16s; }
-
-        @keyframes float {
-            0%, 100% {
-                top: 100%;
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                top: -10%;
-                opacity: 0;
+            .connections {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-gradient"></div>
-    <div class="grid-pattern"></div>
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
-
     <div class="container">
-        <!-- Header -->
+        <!-- Header with AI Agent -->
         <header class="header">
-            <div class="badge">
-                <span class="badge-dot"></span>
-                AI-Powered Marketing Workflow
+            <div class="agent-section">
+                <div class="side-badge">MCP Server</div>
+                <div class="agent-circle">
+                    <div class="agent-icon">🤖</div>
+                    <div class="agent-label">AI AGENT</div>
+                </div>
+                <div class="side-badge">Claude Code</div>
             </div>
-            <h1>Quy Trình AI Hỗ Trợ<br>Marketing Automation</h1>
-            <p class="subtitle">Giải pháp tự động hóa marketing toàn diện dành cho công ty công nghệ, tối ưu hóa quy trình từ lên ý tưởng đến đăng bài tự động</p>
         </header>
 
-        <!-- Stats -->
-        <div class="stats-bar">
-            <div class="stat-item">
-                <div class="stat-number" data-count="85">0%</div>
-                <div class="stat-label">Tiết kiệm thời gian</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="3">0x</div>
-                <div class="stat-label">Tăng hiệu suất</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="24">0/7</div>
-                <div class="stat-label">Hoạt động liên tục</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="100">0+</div>
-                <div class="stat-label">Nội dung/tháng</div>
-            </div>
+        <!-- Connection Lines -->
+        <div class="connections">
+            <!-- Center vertical line -->
+            <div class="connection-line connection-vertical" style="left: 50%;"></div>
+            <!-- Horizontal line -->
+            <div class="connection-line connection-horizontal" style="left: 16.67%; width: 66.66%;"></div>
+            <!-- Left arrow -->
+            <div class="connection-line connection-down" style="left: 16.67%;"></div>
+            <div class="arrow-down" style="left: calc(16.67% - 5px);"></div>
+            <!-- Center arrow -->
+            <div class="connection-line connection-down" style="left: 50%;"></div>
+            <div class="arrow-down" style="left: calc(50% - 5px);"></div>
+            <!-- Right arrow -->
+            <div class="connection-line connection-down" style="left: 83.33%;"></div>
+            <div class="arrow-down" style="left: calc(83.33% - 5px);"></div>
         </div>
 
-        <!-- Workflow Title -->
-        <div class="workflow-title">
-            <h2>🔄 Quy Trình 6 Bước</h2>
-            <p>Click vào từng bước trong diagram để xem chi tiết</p>
+        <!-- Title -->
+        <div class="title-section">
+            <h1>Unified Messaging & HR Assistant</h1>
+            <p class="subtitle">// Multi-platform communication + CV screening powered by Claude AI</p>
         </div>
 
-        <!-- Interactive Workflow Diagram -->
-        <div class="workflow-diagram-container">
-            <svg class="workflow-diagram" viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <!-- Gradients -->
-                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.2" />
-                        <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0.05" />
-                    </linearGradient>
-                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
-                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.05" />
-                    </linearGradient>
-                    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.2" />
-                        <stop offset="100%" style="stop-color:#ec4899;stop-opacity:0.05" />
-                    </linearGradient>
-                    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.2" />
-                        <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.05" />
-                    </linearGradient>
-                    <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.2" />
-                        <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.05" />
-                    </linearGradient>
-                    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.2" />
-                        <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.05" />
-                    </linearGradient>
-                    
-                    <!-- Arrow marker -->
-                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                        <polygon points="0 0, 10 3.5, 0 7" fill="rgba(255,255,255,0.4)"/>
-                    </marker>
-                    
-                    <!-- Glow filters -->
-                    <filter id="glow1" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
-                        <feMerge>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                    </filter>
-                </defs>
-                
-                <!-- Connection lines between cards -->
-                <g class="connections">
-                    <!-- Flow lines between each card -->
-                    <line class="flow-line flow-1" x1="230" y1="165" x2="280" y2="165" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="round"/>
-                    <line class="flow-line flow-2" x1="430" y1="165" x2="480" y2="165" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
-                    <line class="flow-line flow-3" x1="630" y1="165" x2="680" y2="165" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round"/>
-                    <line class="flow-line flow-4" x1="830" y1="165" x2="880" y2="165" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-                    
-                    <!-- Feedback loop - completely outside cards -->
-                    <path class="feedback-loop" d="M1030 165 L1100 165 Q1140 165 1140 205 L1140 335 Q1140 395 1080 395 L120 395 Q60 395 60 335 L60 205 Q60 165 80 165" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
-                </g>
-                
-                <!-- Step 1 -->
-                <g class="diagram-step" data-step="1" onclick="scrollToCard(1)">
-                    <rect x="80" y="80" width="150" height="170" rx="16" fill="url(#grad1)" stroke="#00d4ff" stroke-width="1.5" class="step-box"/>
-                    <circle cx="155" cy="115" r="24" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-width="1.5"/>
-                    <text x="155" y="122" text-anchor="middle" fill="#00d4ff" font-size="18" font-weight="700" font-family="Space Grotesk">01</text>
-                    <text x="155" y="160" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">Phân Tích</text>
-                    <text x="155" y="180" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">Campaign</text>
-                    <g class="ai-badge">
-                        <rect x="115" y="200" width="80" height="24" rx="12" fill="rgba(0,212,255,0.2)" stroke="#00d4ff" stroke-width="0.5"/>
-                        <text x="155" y="216" text-anchor="middle" fill="#00d4ff" font-size="10" font-weight="600" font-family="Sora">⚡ AI Powered</text>
-                    </g>
-                </g>
-                
-                <!-- Step 2 -->
-                <g class="diagram-step" data-step="2" onclick="scrollToCard(2)">
-                    <rect x="280" y="80" width="150" height="170" rx="16" fill="url(#grad2)" stroke="#8b5cf6" stroke-width="1.5" class="step-box"/>
-                    <circle cx="355" cy="115" r="24" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6" stroke-width="1.5"/>
-                    <text x="355" y="122" text-anchor="middle" fill="#8b5cf6" font-size="18" font-weight="700" font-family="Space Grotesk">02</text>
-                    <text x="355" y="160" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">Lên Ý Tưởng</text>
-                    <text x="355" y="180" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">Content</text>
-                    <g class="ai-badge">
-                        <rect x="315" y="200" width="80" height="24" rx="12" fill="rgba(139,92,246,0.2)" stroke="#8b5cf6" stroke-width="0.5"/>
-                        <text x="355" y="216" text-anchor="middle" fill="#8b5cf6" font-size="10" font-weight="600" font-family="Sora">⚡ AI Powered</text>
-                    </g>
-                </g>
-                
-                <!-- Step 3 -->
-                <g class="diagram-step" data-step="3" onclick="scrollToCard(3)">
-                    <rect x="480" y="80" width="150" height="170" rx="16" fill="url(#grad3)" stroke="#ec4899" stroke-width="1.5" class="step-box"/>
-                    <circle cx="555" cy="115" r="24" fill="rgba(236,72,153,0.15)" stroke="#ec4899" stroke-width="1.5"/>
-                    <text x="555" y="122" text-anchor="middle" fill="#ec4899" font-size="18" font-weight="700" font-family="Space Grotesk">03</text>
-                    <text x="555" y="160" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">Viết Content</text>
-                    <text x="555" y="180" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">& Copy</text>
-                    <g class="ai-badge">
-                        <rect x="515" y="200" width="80" height="24" rx="12" fill="rgba(236,72,153,0.2)" stroke="#ec4899" stroke-width="0.5"/>
-                        <text x="555" y="216" text-anchor="middle" fill="#ec4899" font-size="10" font-weight="600" font-family="Sora">⚡ AI Powered</text>
-                    </g>
-                </g>
-                
-                <!-- Step 4 -->
-                <g class="diagram-step" data-step="4" onclick="scrollToCard(4)">
-                    <rect x="680" y="80" width="150" height="170" rx="16" fill="url(#grad4)" stroke="#10b981" stroke-width="1.5" class="step-box"/>
-                    <circle cx="755" cy="115" r="24" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="1.5"/>
-                    <text x="755" y="122" text-anchor="middle" fill="#10b981" font-size="18" font-weight="700" font-family="Space Grotesk">04</text>
-                    <text x="755" y="160" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">Tạo Hình Ảnh</text>
-                    <text x="755" y="180" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">& Video</text>
-                    <g class="ai-badge">
-                        <rect x="715" y="200" width="80" height="24" rx="12" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="0.5"/>
-                        <text x="755" y="216" text-anchor="middle" fill="#10b981" font-size="10" font-weight="600" font-family="Sora">⚡ AI Powered</text>
-                    </g>
-                </g>
-                
-                <!-- Step 5 -->
-                <g class="diagram-step" data-step="5" onclick="scrollToCard(5)">
-                    <rect x="880" y="80" width="150" height="170" rx="16" fill="url(#grad5)" stroke="#f59e0b" stroke-width="1.5" class="step-box"/>
-                    <circle cx="955" cy="115" r="24" fill="rgba(245,158,11,0.15)" stroke="#f59e0b" stroke-width="1.5"/>
-                    <text x="955" y="122" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="700" font-family="Space Grotesk">05</text>
-                    <text x="955" y="160" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">Lập Lịch</text>
-                    <text x="955" y="180" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600" font-family="Sora">& Đăng Bài</text>
-                    <g class="ai-badge">
-                        <rect x="915" y="200" width="80" height="24" rx="12" fill="rgba(245,158,11,0.2)" stroke="#f59e0b" stroke-width="0.5"/>
-                        <text x="955" y="216" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="600" font-family="Sora">⚡ AI Powered</text>
-                    </g>
-                </g>
-                
-                <!-- Center Feedback Loop Text -->
-                <g class="feedback-label">
-                    <rect x="520" y="340" width="160" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-                    <text x="600" y="364" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="12" font-family="Sora">🔄 Continuous Loop</text>
-                </g>
-                
-                <!-- Step 6 - Analysis (Below, centered) -->
-                <g class="diagram-step step-6-special" data-step="6" onclick="scrollToCard(6)">
-                    <rect x="525" y="410" width="150" height="80" rx="16" fill="url(#grad6)" stroke="#06b6d4" stroke-width="2" class="step-box"/>
-                    <text x="600" y="445" text-anchor="middle" fill="#06b6d4" font-size="16" font-weight="700" font-family="Space Grotesk">06</text>
-                    <text x="600" y="470" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600" font-family="Sora">Phân Tích & Tối Ưu</text>
-                </g>
-                
-                <!-- Arrows to Step 6 -->
-                <path d="M600 375 L600 410" stroke="rgba(6,182,212,0.5)" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="4,4">
-                    <animate attributeName="stroke-dashoffset" from="16" to="0" dur="1s" repeatCount="indefinite"/>
-                </path>
-            </svg>
-            
-            <!-- Diagram Legend -->
-            <div class="diagram-legend">
-                <div class="legend-item">
-                    <span class="legend-dot" style="background: #00d4ff;"></span>
-                    <span>Phân tích & Chiến lược</span>
+        <!-- Flow Grid -->
+        <div class="flow-grid">
+            <!-- Flow 1: Message Aggregation -->
+            <div class="flow-card">
+                <div class="flow-header">
+                    <div class="flow-icon purple">💬</div>
+                    <div class="flow-title-group">
+                        <h2 class="flow-title purple">Message Aggregation</h2>
+                        <p class="flow-subtitle">flow_01 // unified inbox</p>
+                    </div>
                 </div>
-                <div class="legend-item">
-                    <span class="legend-dot" style="background: #8b5cf6;"></span>
-                    <span>Ý tưởng sáng tạo</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot" style="background: #ec4899;"></span>
-                    <span>Sản xuất nội dung</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot" style="background: #10b981;"></span>
-                    <span>Visual & Media</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot" style="background: #f59e0b;"></span>
-                    <span>Phân phối</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot" style="background: #06b6d4;"></span>
-                    <span>Analytics & Optimize</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Detailed Cards Title -->
-        <div class="cards-title" style="margin-top: 60px; margin-bottom: 30px;">
-            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; text-align: center; color: var(--text-secondary);">📋 Chi Tiết Từng Bước</h3>
-        </div>
-
-        <!-- Main Workflow Grid -->
-        <div class="workflow-grid">
-            <div class="workflow-card" data-step="1">
-                <div class="card-header">
-                    <div class="step-number">01</div>
-                    <div class="card-title">Phân Tích Campaign</div>
-                </div>
-                <p class="card-description">AI phân tích mục tiêu campaign, đối tượng khách hàng và đề xuất chiến lược nội dung phù hợp với từng giai đoạn.</p>
-                <div class="card-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">🎯</span>
-                        <span>Xác định mục tiêu & KPI</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">👥</span>
-                        <span>Phân tích persona khách hàng</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">📊</span>
-                        <span>Đề xuất kênh phân phối</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="workflow-card" data-step="2">
-                <div class="card-header">
-                    <div class="step-number">02</div>
-                    <div class="card-title">Lên Ý Tưởng Content</div>
-                </div>
-                <p class="card-description">Tự động generate ý tưởng content dựa trên trend, đối thủ và lịch sử engagement của công ty.</p>
-                <div class="card-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">💡</span>
-                        <span>Brainstorm ý tưởng tự động</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">📈</span>
-                        <span>Phân tích trend thị trường</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🔍</span>
-                        <span>Research đối thủ cạnh tranh</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="workflow-card" data-step="3">
-                <div class="card-header">
-                    <div class="step-number">03</div>
-                    <div class="card-title">Viết Content & Copy</div>
-                </div>
-                <p class="card-description">AI hỗ trợ viết nội dung đa dạng từ bài blog, social post đến email marketing với tone phù hợp brand.</p>
-                <div class="card-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">✍️</span>
-                        <span>Viết bài blog tự động</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">📱</span>
-                        <span>Social media copywriting</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">📧</span>
-                        <span>Email marketing sequences</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="workflow-card" data-step="4">
-                <div class="card-header">
-                    <div class="step-number">04</div>
-                    <div class="card-title">Tạo Hình Ảnh & Video</div>
-                </div>
-                <p class="card-description">Tự động tạo visual content phù hợp với từng nền tảng, đảm bảo nhất quán với brand guidelines.</p>
-                <div class="card-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">🎨</span>
-                        <span>Generate ảnh từ prompt</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🎬</span>
-                        <span>Tạo video ngắn tự động</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">📐</span>
-                        <span>Resize đa nền tảng</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="workflow-card" data-step="5">
-                <div class="card-header">
-                    <div class="step-number">05</div>
-                    <div class="card-title">Lập Lịch & Đăng Bài</div>
-                </div>
-                <p class="card-description">Hệ thống tự động lên lịch đăng bài dựa trên thời điểm vàng và phân phối đa kênh đồng bộ.</p>
-                <div class="card-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">📅</span>
-                        <span>Lập lịch thông minh</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🔄</span>
-                        <span>Đăng đa kênh đồng bộ</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">⏰</span>
-                        <span>Tối ưu thời gian đăng</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="workflow-card" data-step="6">
-                <div class="card-header">
-                    <div class="step-number">06</div>
-                    <div class="card-title">Phân Tích & Tối Ưu</div>
-                </div>
-                <p class="card-description">AI theo dõi hiệu quả real-time, đưa ra insights và tự động điều chỉnh chiến lược.</p>
-                <div class="card-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">📊</span>
-                        <span>Dashboard real-time</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🧠</span>
-                        <span>AI insights & predictions</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🔧</span>
-                        <span>Tự động A/B testing</span>
-                        <span class="ai-tag">⚡ AI</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Interactive Demo Section -->
-        <div class="demo-section">
-            <div class="demo-header">
-                <h2>🚀 Demo Tương Tác</h2>
-                <p style="color: var(--text-secondary);">Trải nghiệm trực tiếp các tính năng AI</p>
-            </div>
-
-            <div class="demo-tabs">
-                <button class="demo-tab active" data-tab="content">Content AI</button>
-                <button class="demo-tab" data-tab="image">Image AI</button>
-                <button class="demo-tab" data-tab="schedule">Smart Schedule</button>
-                <button class="demo-tab" data-tab="analytics">Analytics AI</button>
-            </div>
-
-            <div class="demo-content active" id="content-tab">
-                <div class="demo-visual">
-                    <div class="content-preview">
-                        <div class="content-preview-header">
-                            <div class="preview-avatar">🤖</div>
-                            <div class="preview-meta">
-                                <div class="preview-name">AI Content Generator</div>
-                                <div class="preview-time">Đang tạo nội dung...</div>
+                <div class="steps-list">
+                    <div class="step-item">
+                        <div class="step-number green">01</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Connect Platforms</h3>
+                            <p class="step-desc">Kết nối Zalo, Telegram, LinkedIn, WhatsApp qua OAuth & API</p>
+                            <div class="step-tags">
+                                <span class="tag teal">MCP:OAuth</span>
+                                <span class="tag muted">API Keys</span>
                             </div>
                         </div>
-                        <div class="preview-text" id="generated-content">
-                            🎯 <strong>Campaign:</strong> Ra mắt tính năng mới<br><br>
-                            📝 <strong>Social Post (LinkedIn):</strong><br>
-                            "Chúng tôi vừa ra mắt tính năng AI mới giúp tăng 3x hiệu suất làm việc! 🚀<br><br>
-                            Với công nghệ machine learning tiên tiến, giờ đây bạn có thể tự động hóa 80% công việc lặp đi lặp lại.<br><br>
-                            🔗 Đăng ký dùng thử miễn phí ngay hôm nay!"
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number green">02</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Sync Messages</h3>
+                            <p class="step-desc">Real-time sync từ 4 platforms vào unified inbox</p>
+                            <div class="step-tags">
+                                <span class="tag teal">WebSocket</span>
+                                <span class="tag muted">Polling</span>
+                            </div>
                         </div>
                     </div>
-                    <button class="generate-btn" onclick="generateContent()">
-                        <span class="btn-text">✨ Generate Content Mới</span>
-                        <div class="spinner"></div>
-                    </button>
+
+                    <div class="step-item">
+                        <div class="step-number green">03</div>
+                        <div class="step-content">
+                            <h3 class="step-title">AI Categorize</h3>
+                            <p class="step-desc">Phân loại: urgent, sales lead, support & priority sorting</p>
+                            <div class="step-tags">
+                                <span class="tag amber">Claude AI</span>
+                                <span class="tag muted">NLP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number green">04</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Smart Reply</h3>
+                            <p class="step-desc">Reply từ 1 cửa sổ, auto-route về đúng platform gốc</p>
+                            <div class="step-tags">
+                                <span class="tag green">Auto-route</span>
+                                <span class="tag muted">Templates</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <p class="output-label">Output</p>
+                    <div class="output-list">
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-cyan);"></span>
+                            <span class="output-name">unified-inbox</span>
+                            <span class="output-badge ui">UI</span>
+                        </div>
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-blue);"></span>
+                            <span class="output-name">conversations.json</span>
+                            <span class="output-badge json">json</span>
+                        </div>
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-purple);"></span>
+                            <span class="output-name">priority-alerts</span>
+                            <span class="output-badge auto">auto</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="demo-content" id="image-tab">
-                <div class="demo-visual">
-                    <div class="content-preview">
-                        <div class="content-preview-header">
-                            <div class="preview-avatar">🎨</div>
-                            <div class="preview-meta">
-                                <div class="preview-name">AI Image Generator</div>
-                                <div class="preview-time">Sẵn sàng tạo ảnh</div>
+            <!-- Flow 2: Bulk Messaging -->
+            <div class="flow-card">
+                <div class="flow-header">
+                    <div class="flow-icon teal">📡</div>
+                    <div class="flow-title-group">
+                        <h2 class="flow-title teal">Cross-Platform Broadcast</h2>
+                        <p class="flow-subtitle">flow_02 // bulk messaging</p>
+                    </div>
+                </div>
+
+                <div class="steps-list">
+                    <div class="step-item">
+                        <div class="step-number teal">01</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Compose Message</h3>
+                            <p class="step-desc">Soạn tin với template & variables {name}, {company}</p>
+                            <div class="step-tags">
+                                <span class="tag cyan">Templates</span>
+                                <span class="tag muted">Variables</span>
                             </div>
                         </div>
-                        <div class="preview-image" id="image-preview">
-                            🖼️ Click để generate ảnh theo campaign
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number teal">02</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Select Groups</h3>
+                            <p class="step-desc">Chọn nhiều groups từ Zalo, Telegram, WhatsApp cùng lúc</p>
+                            <div class="step-tags">
+                                <span class="tag blue">Multi-select</span>
+                                <span class="tag muted">Filters</span>
+                            </div>
                         </div>
                     </div>
-                    <button class="generate-btn" onclick="generateImage()">
-                        <span class="btn-text">🎨 Generate Hình Ảnh</span>
-                        <div class="spinner"></div>
-                    </button>
+
+                    <div class="step-item">
+                        <div class="step-number teal">03</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Schedule & Queue</h3>
+                            <p class="step-desc">Đặt lịch gửi, rate limiting tránh spam detection</p>
+                            <div class="step-tags">
+                                <span class="tag amber">Scheduler</span>
+                                <span class="tag muted">Queue</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number teal">04</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Broadcast & Track</h3>
+                            <p class="step-desc">Gửi đồng loạt, tracking delivery status realtime</p>
+                            <div class="step-tags">
+                                <span class="tag green">Tracking</span>
+                                <span class="tag muted">Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <p class="output-label">Output</p>
+                    <div class="output-list">
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-green);"></span>
+                            <span class="output-name">broadcast-report.md</span>
+                            <span class="output-badge md">.md</span>
+                        </div>
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-amber);"></span>
+                            <span class="output-name">delivery-analytics</span>
+                            <span class="output-badge chart">chart</span>
+                        </div>
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-purple);"></span>
+                            <span class="output-name">scheduled-queue</span>
+                            <span class="output-badge auto">auto</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="demo-content" id="schedule-tab">
-                <div class="demo-visual">
-                    <div class="content-preview">
-                        <div class="content-preview-header">
-                            <div class="preview-avatar">📅</div>
-                            <div class="preview-meta">
-                                <div class="preview-name">Smart Scheduler</div>
-                                <div class="preview-time">Đề xuất lịch đăng bài</div>
-                            </div>
-                        </div>
-                        <div class="preview-text" id="schedule-preview">
-                            📊 <strong>Phân tích thời gian vàng:</strong><br><br>
-                            • <strong>LinkedIn:</strong> 8:00 - 10:00 sáng (T2-T5) ⭐<br>
-                            • <strong>Facebook:</strong> 12:00 - 14:00 (T3, T5, CN) ⭐<br>
-                            • <strong>Instagram:</strong> 19:00 - 21:00 (hàng ngày) ⭐<br>
-                            • <strong>TikTok:</strong> 21:00 - 23:00 (T6-CN) ⭐<br><br>
-                            💡 <em>AI đã phân tích 10,000+ data points từ audience của bạn</em>
-                        </div>
+            <!-- Flow 3: CV Screening -->
+            <div class="flow-card">
+                <div class="flow-header">
+                    <div class="flow-icon coral">📋</div>
+                    <div class="flow-title-group">
+                        <h2 class="flow-title coral">AI CV Screening</h2>
+                        <p class="flow-subtitle">flow_03 // hr matching</p>
                     </div>
-                    <button class="generate-btn" onclick="analyzeSchedule()">
-                        <span class="btn-text">📅 Phân Tích Lịch Mới</span>
-                        <div class="spinner"></div>
-                    </button>
                 </div>
-            </div>
 
-            <div class="demo-content" id="analytics-tab">
-                <div class="demo-visual">
-                    <div class="content-preview">
-                        <div class="content-preview-header">
-                            <div class="preview-avatar">📈</div>
-                            <div class="preview-meta">
-                                <div class="preview-name">AI Analytics</div>
-                                <div class="preview-time">Báo cáo tuần này</div>
+                <div class="steps-list">
+                    <div class="step-item">
+                        <div class="step-number emerald">01</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Define Requirements</h3>
+                            <p class="step-desc">Nhập JD: skills, experience, education với trọng số</p>
+                            <div class="step-tags">
+                                <span class="tag pink">JD Input</span>
+                                <span class="tag muted">Weights</span>
                             </div>
                         </div>
-                        <div class="preview-text" id="analytics-preview">
-                            📈 <strong>Hiệu suất Campaign tuần qua:</strong><br><br>
-                            ✅ Reach tăng: <span style="color: #10b981;">+45%</span><br>
-                            ✅ Engagement rate: <span style="color: #10b981;">+32%</span><br>
-                            ✅ Click-through rate: <span style="color: #10b981;">+28%</span><br>
-                            ⚠️ Video views giảm: <span style="color: #f59e0b;">-12%</span><br><br>
-                            💡 <strong>AI Đề xuất:</strong> Tăng tần suất video ngắn vào khung 19:00-21:00 để cải thiện video views.
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number emerald">02</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Parse CVs</h3>
+                            <p class="step-desc">Upload batch CVs (PDF, DOCX), extract structured data</p>
+                            <div class="step-tags">
+                                <span class="tag purple">PDF Parser</span>
+                                <span class="tag muted">OCR</span>
+                            </div>
                         </div>
                     </div>
-                    <button class="generate-btn" onclick="refreshAnalytics()">
-                        <span class="btn-text">🔄 Refresh Data</span>
-                        <div class="spinner"></div>
-                    </button>
+
+                    <div class="step-item">
+                        <div class="step-number emerald">03</div>
+                        <div class="step-content">
+                            <h3 class="step-title">AI Matching</h3>
+                            <p class="step-desc">Claude AI so khớp skills & experience, tính match score</p>
+                            <div class="step-tags">
+                                <span class="tag amber">Claude AI</span>
+                                <span class="tag muted">Embeddings</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-number emerald">04</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Rank & Report</h3>
+                            <p class="step-desc">Xếp hạng ứng viên, phân tích strengths & gaps</p>
+                            <div class="step-tags">
+                                <span class="tag green">Ranking</span>
+                                <span class="tag muted">Insights</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <p class="output-label">Output</p>
+                    <div class="output-list">
+                        <div class="output-item">
+                            <span class="output-dot" style="background: #f97316;"></span>
+                            <span class="output-name">candidate-ranking.xlsx</span>
+                            <span class="output-badge xlsx">.xlsx</span>
+                        </div>
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-green);"></span>
+                            <span class="output-name">match-analysis.md</span>
+                            <span class="output-badge md">.md</span>
+                        </div>
+                        <div class="output-item">
+                            <span class="output-dot" style="background: var(--accent-purple);"></span>
+                            <span class="output-name">shortlist-alerts</span>
+                            <span class="output-badge auto">auto</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-badges">
+                <div class="footer-badge">
+                    <div class="footer-badge-value" style="color: var(--accent-cyan);">4+</div>
+                    <div class="footer-badge-label">Platforms</div>
+                </div>
+                <div class="footer-badge">
+                    <div class="footer-badge-value" style="color: var(--accent-green);">1</div>
+                    <div class="footer-badge-label">Unified Inbox</div>
+                </div>
+                <div class="footer-badge">
+                    <div class="footer-badge-value" style="color: var(--accent-amber);">AI</div>
+                    <div class="footer-badge-label">CV Matching</div>
+                </div>
+                <div class="footer-badge">
+                    <div class="footer-badge-value" style="color: var(--accent-purple);">∞</div>
+                    <div class="footer-badge-label">Bulk Sends</div>
+                </div>
+            </div>
+            <p class="footer-text">Unified Messaging & HR Workflow — Powered by Claude AI + MCP Protocol — Sales & HR Demo</p>
+        </footer>
     </div>
-
-    <script>
-        // Scroll to card function
-        function scrollToCard(stepNumber) {
-            const card = document.querySelector(`.workflow-card[data-step="${stepNumber}"]`);
-            if (card) {
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                card.style.transform = 'translateY(-8px) scale(1.03)';
-                card.style.boxShadow = '0 25px 80px rgba(0,212,255,0.3)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                    card.style.boxShadow = '';
-                }, 1500);
-            }
-        }
-
-        // Tab switching
-        const tabs = document.querySelectorAll('.demo-tab');
-        const contents = document.querySelectorAll('.demo-content');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                const tabId = tab.dataset.tab + '-tab';
-                contents.forEach(content => {
-                    content.classList.remove('active');
-                    if (content.id === tabId) {
-                        content.classList.add('active');
-                    }
-                });
-            });
-        });
-
-        // Content templates
-        const contentTemplates = [
-            {
-                campaign: "Ra mắt tính năng mới",
-                post: "Chúng tôi vừa ra mắt tính năng AI mới giúp tăng 3x hiệu suất làm việc! 🚀\n\nVới công nghệ machine learning tiên tiến, giờ đây bạn có thể tự động hóa 80% công việc lặp đi lặp lại.\n\n🔗 Đăng ký dùng thử miễn phí ngay hôm nay!"
-            },
-            {
-                campaign: "Tech Tips Series",
-                post: "💡 Tech Tip #42: 5 cách tối ưu workflow với AI\n\n1️⃣ Tự động hóa báo cáo\n2️⃣ Chatbot hỗ trợ 24/7\n3️⃣ Smart scheduling\n4️⃣ Content generation\n5️⃣ Data analytics\n\nBạn đang dùng tip nào? Comment bên dưới! 👇"
-            },
-            {
-                campaign: "Case Study",
-                post: "📈 Case Study: Cách chúng tôi tăng 200% engagement trong 3 tháng\n\nBí quyết? AI-powered content strategy! 🤖\n\n✅ Phân tích data real-time\n✅ Tối ưu thời gian đăng bài\n✅ A/B testing tự động\n\nĐọc chi tiết tại link trong bio! 🔗"
-            }
-        ];
-
-        let currentContentIndex = 0;
-
-        function generateContent() {
-            const btn = document.querySelector('#content-tab .generate-btn');
-            const contentEl = document.getElementById('generated-content');
-            
-            btn.classList.add('loading');
-            
-            setTimeout(() => {
-                currentContentIndex = (currentContentIndex + 1) % contentTemplates.length;
-                const template = contentTemplates[currentContentIndex];
-                
-                contentEl.innerHTML = `🎯 <strong>Campaign:</strong> ${template.campaign}<br><br>📝 <strong>Social Post (LinkedIn):</strong><br>"${template.post}"`;
-                
-                btn.classList.remove('loading');
-            }, 1500);
-        }
-
-        const imageStyles = [
-            "🖼️ Minimalist tech design với gradient xanh-tím",
-            "🎨 Bold typography + geometric shapes",
-            "✨ 3D render sản phẩm với lighting effects",
-            "🌐 Infographic data visualization"
-        ];
-
-        let currentImageIndex = 0;
-
-        function generateImage() {
-            const btn = document.querySelector('#image-tab .generate-btn');
-            const imageEl = document.getElementById('image-preview');
-            
-            btn.classList.add('loading');
-            
-            setTimeout(() => {
-                currentImageIndex = (currentImageIndex + 1) % imageStyles.length;
-                imageEl.innerHTML = `✅ Generated: ${imageStyles[currentImageIndex]}`;
-                imageEl.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.2), rgba(0,212,255,0.1))';
-                
-                btn.classList.remove('loading');
-            }, 2000);
-        }
-
-        const scheduleData = [
-            "📊 <strong>Optimal schedule cho Q2:</strong><br><br>• <strong>Mon:</strong> Blog post + LinkedIn ⭐<br>• <strong>Tue:</strong> Video content + IG ⭐<br>• <strong>Wed:</strong> Customer story + FB ⭐<br>• <strong>Thu:</strong> Tips & Tricks + Twitter ⭐<br>• <strong>Fri:</strong> Behind the scenes + TikTok ⭐",
-            "📊 <strong>Phân tích thời gian vàng:</strong><br><br>• <strong>LinkedIn:</strong> 8:00 - 10:00 sáng (T2-T5) ⭐<br>• <strong>Facebook:</strong> 12:00 - 14:00 (T3, T5, CN) ⭐<br>• <strong>Instagram:</strong> 19:00 - 21:00 (hàng ngày) ⭐<br>• <strong>TikTok:</strong> 21:00 - 23:00 (T6-CN) ⭐<br><br>💡 <em>AI đã phân tích 10,000+ data points từ audience của bạn</em>"
-        ];
-
-        let currentScheduleIndex = 0;
-
-        function analyzeSchedule() {
-            const btn = document.querySelector('#schedule-tab .generate-btn');
-            const scheduleEl = document.getElementById('schedule-preview');
-            
-            btn.classList.add('loading');
-            
-            setTimeout(() => {
-                currentScheduleIndex = (currentScheduleIndex + 1) % scheduleData.length;
-                scheduleEl.innerHTML = scheduleData[currentScheduleIndex];
-                
-                btn.classList.remove('loading');
-            }, 1800);
-        }
-
-        function refreshAnalytics() {
-            const btn = document.querySelector('#analytics-tab .generate-btn');
-            const analyticsEl = document.getElementById('analytics-preview');
-            
-            btn.classList.add('loading');
-            
-            setTimeout(() => {
-                const reach = Math.floor(Math.random() * 50) + 20;
-                const engagement = Math.floor(Math.random() * 40) + 15;
-                const ctr = Math.floor(Math.random() * 35) + 10;
-                const video = Math.random() > 0.5 ? Math.floor(Math.random() * 20) + 5 : -Math.floor(Math.random() * 15);
-                
-                analyticsEl.innerHTML = `📈 <strong>Hiệu suất Campaign tuần qua:</strong><br><br>
-                    ✅ Reach tăng: <span style="color: #10b981;">+${reach}%</span><br>
-                    ✅ Engagement rate: <span style="color: #10b981;">+${engagement}%</span><br>
-                    ✅ Click-through rate: <span style="color: #10b981;">+${ctr}%</span><br>
-                    ${video >= 0 ? `✅ Video views tăng: <span style="color: #10b981;">+${video}%</span>` : `⚠️ Video views giảm: <span style="color: #f59e0b;">${video}%</span>`}<br><br>
-                    💡 <strong>AI Đề xuất:</strong> ${video < 0 ? 'Tăng tần suất video ngắn vào khung 19:00-21:00 để cải thiện video views.' : 'Tiếp tục chiến lược hiện tại, tập trung vào content video.'}`;
-                
-                btn.classList.remove('loading');
-            }, 1500);
-        }
-
-        // Animate stats on scroll
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const animateValue = (element, start, end, duration, suffix = '') => {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                element.textContent = value + suffix;
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        };
-
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statNumbers = entry.target.querySelectorAll('.stat-number');
-                    statNumbers.forEach(stat => {
-                        const count = parseInt(stat.dataset.count);
-                        const text = stat.textContent;
-                        const suffix = text.includes('%') ? '%' : text.includes('x') ? 'x' : text.includes('/') ? '/7' : '+';
-                        animateValue(stat, 0, count, 2000, suffix);
-                    });
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        const statsBar = document.querySelector('.stats-bar');
-        if (statsBar) statsObserver.observe(statsBar);
-
-        // Card hover effects
-        document.querySelectorAll('.workflow-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.boxShadow = `0 20px 60px rgba(0,212,255,0.15)`;
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.boxShadow = 'none';
-            });
-        });
-    </script>
 </body>
 </html>
